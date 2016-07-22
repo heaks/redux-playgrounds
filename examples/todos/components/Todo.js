@@ -1,18 +1,20 @@
 import React, { PropTypes } from 'react'
+import Votes from './Votes'
 
-const Todo = ({ onClick, completed, text }) => (
+const Todo = ({ onTextClick, onVoteClick, completed, text, votes}) => {
+  return (
   <li
-    onClick={onClick}
     style={{
       textDecoration: completed ? 'line-through' : 'none'
     }}
   >
-    {text}
+    <span onClick={onTextClick}>{text}</span> {'  '}  <Votes votes={votes} onVoteClick={onVoteClick}/>
   </li>
-)
+)}
 
 Todo.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onTextClick: PropTypes.func.isRequired,
+  onVoteClick: PropTypes.func.isRequired,
   completed: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired
 }

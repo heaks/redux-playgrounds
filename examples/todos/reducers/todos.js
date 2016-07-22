@@ -4,7 +4,8 @@ const todo = (state, action) => {
       return {
         id: action.id,
         text: action.text,
-        completed: false
+        completed: false,
+        votes: 0
       }
     case 'TOGGLE_TODO':
       if (state.id !== action.id) {
@@ -13,6 +14,13 @@ const todo = (state, action) => {
 
       return Object.assign({}, state, {
         completed: !state.completed
+      })
+    case 'UPVOTE_TODO':
+      if (state.id !== action.id) {
+        return state
+      }
+      return Object.assign({}, state, {
+        votes: state.votes + 1
       })
     default:
       return state
@@ -30,6 +38,10 @@ const todos = (state = [], action) => {
       return state.map(t =>
         todo(t, action)
       )
+    case 'UPVOTE_TODO':
+      return state.map(t =>
+          todo(t, action)
+      );
     default:
       return state
   }
